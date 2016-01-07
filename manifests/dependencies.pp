@@ -1,6 +1,8 @@
 class mumble_ruby_bot::dependencies {
 
-  $username = $::mumble_ruby_bot::username
+  $username     = $::mumble_ruby_bot::username
+  $celt_version = $::mumble_ruby_bot::celt_version
+
 
   $dependencies = [
     'curl', 'git', 'libyaml-dev', 'libopus-dev', 'build-essential', 'zlib1g', 
@@ -22,7 +24,7 @@ class mumble_ruby_bot::dependencies {
     target => '/usr/bin/avconv',
   }
 
-   Exec { 
+  Exec { 
     path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/rvm/bin', "/home/$username/src/celt-$celt_version"  ],
   }
 
