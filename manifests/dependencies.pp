@@ -24,10 +24,6 @@ class mumble_ruby_bot::dependencies {
     target => '/usr/bin/avconv',
   }
 
-  Exec { 
-    path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/rvm/bin', "/home/$username/src/celt-$celt_version"  ],
-  }
-
   class { '::rvm': }
 
 }

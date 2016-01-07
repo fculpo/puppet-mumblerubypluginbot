@@ -8,7 +8,12 @@ class mumble_ruby_bot(
   $quality_bitrate           = $::mumble_ruby_bot::params::quality_bitrate,
 ) inherits ::mumble_ruby_bot::params
 
-{  
+{
+  
+  Exec { 
+    path => [ '/usr/local/sbin', '/usr/local/bin', '/usr/sbin/', '/usr/bin', '/sbin', '/bin', '/usr/local/rvm/bin', "/home/$username/src/celt-$celt_version" ],
+  }
+
   include mumble_ruby_bot::dependencies
   include mumble_ruby_bot::repos
   include mumble_ruby_bot::build
