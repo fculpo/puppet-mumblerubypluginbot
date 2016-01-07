@@ -92,6 +92,7 @@ class mumble_ruby_bot(
     provider => git,
     path     => "/home/$username/src/opus-ruby",
     user     => $username,
+    revision => 'master',
     source   => 'https://github.com/dafoxia/opus-ruby.git',
     require  => File["/home/$username/src"],
   }
@@ -101,6 +102,7 @@ class mumble_ruby_bot(
     provider => git,
     path     => "/home/$username/src/mumble-ruby-related",
     user     => $username,
+    revision => 'master',
     source   => 'https://github.com/Natenom/mumble-ruby-related.git',
     require  => File["/home/$username/src"],
   }
