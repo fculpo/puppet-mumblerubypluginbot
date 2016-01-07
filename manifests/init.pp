@@ -181,13 +181,13 @@ class mumble_ruby_bot(
     command   => "rvm $ruby_version@bots do gem build opus-ruby.gemspec",
     cwd       => "/home/$username/src/opus-ruby",
     user      => $username,
-    creates   => "/home/$username/src/opus-ruby/opus-ruby-$opus_rubygem_version .gem",
+    creates   => "/home/$username/src/opus-ruby/opus-ruby-$opus_rubygem_version.gem",
     require   => [ Vcsrepo['opus-ruby'], Rvm_gemset["ruby-$ruby_version@bots"]],
   }
 
   rvm_gem { 'opus-ruby':
     ruby_version => "ruby-$ruby_version@bots",
-    source 	     => "/home/$username/src/opus-ruby/opus-ruby-$opus_rubygem_version .gem",
+    source 	     => "/home/$username/src/opus-ruby/opus-ruby-$opus_rubygem_version.gem",
     name	       => 'opus-ruby',
     ensure 	     => 'present',
     require	     => Exec['build_opusruby_gem'],
