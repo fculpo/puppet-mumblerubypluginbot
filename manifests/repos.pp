@@ -1,6 +1,8 @@
 class mumble_ruby_bot::repos {
 
   $celt_version = $::mumble_ruby_bot::celt_version
+  $username     = $::mumble_ruby_bot::username
+
 
   vcsrepo { 'mumble-ruby':
     ensure   => latest,
