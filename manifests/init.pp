@@ -51,18 +51,21 @@ class mumble_ruby_bot(
   }
 
   rvm_system_ruby {
+    "ruby-2.1.1":
+      ensure      => present,
+      default_use => false;
     "ruby-$ruby_version":
-      ensure	    => 'present',
+      ensure	    => present,
       default_use => true;
   }
 
   rvm_gemset { "ruby-$ruby_version@bots":
       ensure  => present,
-      require => Rvm_system_ruby["ruby-$ruby_version"];
+      require => Rvm_system_ruby["ruby-$ruby_version"]
   }
 
   user { $username:
-    ensure           => 'present',
+    ensure           => present,
     home             => "/home/$username",
     password         => '!!',
     managehome	     => true,    
