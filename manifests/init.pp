@@ -1,10 +1,11 @@
 class mumble_ruby_bot(
-  $username            = 'botmaster',
-  $ruby_version        = '2.3.0',
-  $celt_version        = '0.7.0',
-  $celt_ruby_version   = '0.0.1',
-  $mumble_ruby_version = '1.1.2',
-  $opus_ruby_version   = '1.0.1',
+  $username                  = $::mumble_ruby_bot::params::username,
+  $ruby_version              = $::mumble_ruby_bot::params::ruby_version,
+  $celt_version              = $::mumble_ruby_bot::params::celt_version,
+  $celt_rubygem_version      = $::mumble_ruby_bot::params::celt_rubygem_version,
+  $mumble_rubygem_version    = $::mumble_ruby_bot::params::mumble_rubygem_version,
+  $opus_rubygem_version      = $::mumble_ruby_bot::params::opus_rubygem_version,
+  $quality_bitrate           = $::mumble_ruby_bot::params::quality_bitrate,
 ) 
 {  
   package { 'curl':               ensure => 'installed', }
@@ -148,13 +149,13 @@ class mumble_ruby_bot(
     command   => "rvm $ruby_version@bots do gem build celt-ruby.gemspec",
     cwd       => '/home/botmaster/src/celt-ruby',
     user      => $username,
-    creates   => "/home/$username/src/celt-ruby/celt-ruby-$celt_ruby_version.gem",
+    creates   => "/home/$username/src/celt-ruby/celt-ruby-$celt_rubygem_version.gem",
     require   => [ Vcsrepo['celt-ruby'], Rvm_gemset["ruby-$ruby_version@bots"]],
   }
 
   rvm_gem { 'celt-ruby':
     ruby_version  => "ruby-$ruby_version@bots",
-    source 	      => "/home/$username/src/celt-ruby/celt-ruby-$celt_ruby_version.gem",
+    source 	      => "/home/$username/src/celt-ruby/celt-ruby-$celt_rubygem_version.gem",
     name	        => 'celt-ruby',
     ensure 	      => 'present',
     require	      => Exec['build_celtruby_gem'],
@@ -164,13 +165,13 @@ class mumble_ruby_bot(
     command   => "rvm $ruby_version@bots do gem build mumble-ruby.gemspec",
     cwd       => "/home/$username/src/mumble-ruby",
     user      => $username,
-    creates   => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_ruby_version.gem",
+    creates   => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_rubygem_version.gem",
     require   => [ Vcsrepo['mumble-ruby'], Rvm_gemset["ruby-$ruby_version@bots"]],
   }
 
   rvm_gem { 'mumble-ruby':
     ruby_version  => "ruby-$ruby_version@bots",
-    source 	      => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_ruby_version.gem",
+    source 	      => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_rubygem_version.gem",
     name	        => 'mumble-ruby',
     ensure 	      => 'present',
     require	      => Exec['build_mumbleruby_gem'],
@@ -180,13 +181,13 @@ class mumble_ruby_bot(
     command   => "rvm $ruby_version@bots do gem build opus-ruby.gemspec",
     cwd       => "/home/$username/src/opus-ruby",
     user      => $username,
-    creates   => "/home/$username/src/opus-ruby/opus-ruby-$opus_ruby_version.gem",
+    creates   => "/home/$username/src/opus-ruby/opus-ruby-$opus_rubygem_version .gem",
     require   => [ Vcsrepo['opus-ruby'], Rvm_gemset["ruby-$ruby_version@bots"]],
   }
 
   rvm_gem { 'opus-ruby':
     ruby_version => "ruby-$ruby_version@bots",
-    source 	     => "/home/$username/src/opus-ruby/opus-ruby-$opus_ruby_version.gem",
+    source 	     => "/home/$username/src/opus-ruby/opus-ruby-$opus_rubygem_version .gem",
     name	       => 'opus-ruby',
     ensure 	     => 'present',
     require	     => Exec['build_opusruby_gem'],
@@ -198,7 +199,12 @@ class mumble_ruby_bot(
   file { "/home/$username/mpd1/mpd.conf":
     ensure  => file,
     content => template('mumble_ruby_bot/mpd.conf.erb'),
-  } 
+  }
+
+  file { "/home/$username/src/bot1_conf.rb":
+    ensure  => file,
+    content => template('mumble_ruby_bot/bot_conf.rb.erb'),
+  }
 
   file { [ "/home/$username/src/mumble-ruby-pluginbot/scripts/start.sh", "/home/$username/src/mumble-ruby-pluginbot/scripts/updater.sh" ]:
     mode    => '0755',
