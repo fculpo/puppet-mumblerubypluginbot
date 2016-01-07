@@ -1,5 +1,7 @@
 class mumble_ruby_bot::dependencies {
 
+  $username = $::mumble_ruby_bot::username
+
   $dependencies = [
     'curl', 'git', 'libyaml-dev', 'libopus-dev', 'build-essential', 'zlib1g', 
     'zlib1g-dev', 'libssl-dev', 'mpd', 'mpc', 'tmux', 'automake', 'autoconf',
