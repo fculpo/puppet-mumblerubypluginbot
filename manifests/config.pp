@@ -1,11 +1,12 @@
 class mumble_ruby_bot::config {
   
-  $username                  = $::mumble_ruby_bot::username
-  $ruby_version              = $::mumble_ruby_bot::ruby_version
-  $celt_version              = $::mumble_ruby_bot::celt_version
-  $celt_rubygem_version      = $::mumble_ruby_bot::celt_rubygem_version
-  $mumble_rubygem_version    = $::mumble_ruby_bot::mumble_rubygem_version
-  $opus_rubygem_version      = $::mumble_ruby_bot::opus_rubygem_version
+  $username                   = $::mumble_ruby_bot::username
+  $mumbleserver_host          = $::mumble_ruby_bot::mumbleserver_host
+  $mumbleserver_port          = $::mumble_ruby_bot::mumbleserver_port
+  $mumbleserver_username      = $::mumble_ruby_bot::mumbleserver_username
+  $mumbleserver_targetchannel = $::mumble_ruby_bot::mumbleserver_targetchannel
+  $mumbleserver_userpassword  = $::mumble_ruby_bot::mumbleserver_userpassword
+  $quality_bitrate            = $::mumble_ruby_bot::quality_bitrate
 
   file { "/home/$username/mpd1/mpd.conf":
     ensure  => file,
