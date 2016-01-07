@@ -1,0 +1,16 @@
+def ext_config()
+  puts "Own Config loading and overwriting default settings!"
+  overwrite = {
+    mumbleserver_host: "<%= @mumbleserver_host -%>",
+    mumbleserver_port: <%= @mumbleserver_port -%>,
+    mumbleserver_username: "<%= @mumbleserver_username -%>",
+    mumbleserver_targetchannel: "<%= @mumbleserver_targetchannel -%>",
+    mumbleserver_userpassword: "<%= @mumbleserver_userpassword -%>",
+    quality_bitrate: <%= @quality_bitrate -%>,
+    mpd_fifopath: "/home/<%= @username -%>/mpd1/mpd.fifo",
+    mpd_port: 7701,
+    initial_volume: nil
+  }
+
+  @settings = @settings.merge(overwrite)
+end
