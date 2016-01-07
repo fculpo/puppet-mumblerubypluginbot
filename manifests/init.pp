@@ -6,7 +6,7 @@ class mumble_ruby_bot(
   $mumble_rubygem_version    = $::mumble_ruby_bot::params::mumble_rubygem_version,
   $opus_rubygem_version      = $::mumble_ruby_bot::params::opus_rubygem_version,
   $quality_bitrate           = $::mumble_ruby_bot::params::quality_bitrate,
-) 
+) inherits ::mumble_ruby_bot::params
 {  
   package { 'curl':               ensure => 'installed', }
   package { 'git':                ensure => 'installed', }
