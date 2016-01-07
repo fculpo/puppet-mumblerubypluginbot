@@ -1,6 +1,6 @@
 class mumble_ruby_bot(
   $username            = 'botmaster',
-  $ruby_version        = '2.2.4',
+  $ruby_version        = '2.3.0',
   $celt_version        = '0.7.0',
   $celt_ruby_version   = '0.0.1',
   $mumble_ruby_version = '1.1.2',
@@ -196,8 +196,8 @@ class mumble_ruby_bot(
   rvm_gem { "ruby-$ruby_version@bots/crack": }
 
   file { "/home/$username/mpd1/mpd.conf":
-    ensure => symlink,
-    target => "/home/$username/src/mumble-ruby-related/configs/mpd.conf",
+    ensure  => file,
+    content => template('mumble_ruby_bot/mpd.conf.erb'),
   } 
 
   file { [ "/home/$username/src/mumble-ruby-pluginbot/scripts/start.sh", "/home/$username/src/mumble-ruby-pluginbot/scripts/updater.sh" ]:
