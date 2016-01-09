@@ -29,9 +29,6 @@ class mumble_ruby_bot::build {
   }
 
   rvm_system_ruby {
-    "ruby-2.1.1":
-      ensure      => present,
-      default_use => false;
     "ruby-$ruby_version":
       ensure      => present,
       default_use => true;
