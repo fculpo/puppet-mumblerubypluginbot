@@ -39,6 +39,14 @@ class mumble_ruby_bot::build {
       require => Rvm_system_ruby["ruby-$ruby_version"]
   }
 
+  rvm_gem { "ruby-$ruby_version@bots/ruby-mpd":
+    require => Rvm_gemset["ruby-$ruby_version@bots"]
+  }
+
+  rvm_gem { "ruby-$ruby_version@bots/crack":
+    require => Rvm_gemset["ruby-$ruby_version@bots"]
+  }
+
 	exec { 'compile_celt':
     command => "./autogen.sh && ./configure --prefix=/home/$username/src/celt && make && make install",
     cwd     => "/home/$username/src/celt-$celt_version",
@@ -62,22 +70,6 @@ class mumble_ruby_bot::build {
     require       => Exec['build_celtruby_gem'],
   }
 
-  exec { 'build_mumbleruby_gem':
-    command   => "rvm $ruby_version@bots do gem build mumble-ruby.gemspec",
-    cwd       => "/home/$username/src/mumble-ruby",
-    user      => $username,
-    creates   => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_rubygem_version.gem",
-    require   => [ Vcsrepo['mumble-ruby'], Rvm_gemset["ruby-$ruby_version@bots"]],
-  }
-
-  rvm_gem { 'mumble-ruby':
-    ruby_version  => "ruby-$ruby_version@bots",
-    source        => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_rubygem_version.gem",
-    name          => 'mumble-ruby',
-    ensure        => 'present',
-    require       => Exec['build_mumbleruby_gem'],
-  }
-
   exec { 'build_opusruby_gem':
     command   => "rvm $ruby_version@bots do gem build opus-ruby.gemspec",
     cwd       => "/home/$username/src/opus-ruby",
@@ -94,8 +86,21 @@ class mumble_ruby_bot::build {
     require      => Exec['build_opusruby_gem'],
   }
 
-  rvm_gem { "ruby-$ruby_version@bots/ruby-mpd": }
-  rvm_gem { "ruby-$ruby_version@bots/crack": }
+  exec { 'build_mumbleruby_gem':
+    command   => "rvm $ruby_version@bots do gem build mumble-ruby.gemspec",
+    cwd       => "/home/$username/src/mumble-ruby",
+    user      => $username,
+    creates   => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_rubygem_version.gem",
+    require   => [ Vcsrepo['mumble-ruby'], Rvm_gemset["ruby-$ruby_version@bots"]],
+  }
+
+  rvm_gem { 'mumble-ruby':
+    ruby_version  => "ruby-$ruby_version@bots",
+    source        => "/home/$username/src/mumble-ruby/mumble-ruby-$mumble_rubygem_version.gem",
+    name          => 'mumble-ruby',
+    ensure        => 'present',
+    require       => Exec['build_mumbleruby_gem'],
+  }
 
   exec { 'youtube-dl':
     command => "wget https://yt-dl.org/downloads/latest/youtube-dl -O /home/$username/src/youtube-dl && chmod u+x /home/$username/src/youtube-dl && /home/$username/src/youtube-dl -U",

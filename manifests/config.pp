@@ -11,11 +11,15 @@ class mumble_ruby_bot::config {
   file { "/home/$username/mpd1/mpd.conf":
     ensure  => file,
     content => template('mumble_ruby_bot/mpd.conf.erb'),
+    owner   => $username,
+    group   => $username,
   }
 
   file { "/home/$username/src/bot1_conf.rb":
     ensure  => file,
     content => template('mumble_ruby_bot/bot_conf.rb.erb'),
+    owner   => $username,
+    group   => $username,
   }
 
   file { [ "/home/$username/src/mumble-ruby-pluginbot/scripts/start.sh", "/home/$username/src/mumble-ruby-pluginbot/scripts/updater.sh" ]:
