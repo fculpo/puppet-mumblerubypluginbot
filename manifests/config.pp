@@ -28,8 +28,8 @@ class mumble_ruby_bot::config {
   }
 
   file { '/etc/systemd/system/mumblerubypluginbot.service':
-    ensure  => symlink,
-    target  => "/home/$username/src/mumble-ruby-pluginbot/scripts/mumblerubypluginbot.service",
+    ensure  => file,
+    content => template('mumble_ruby_bot/mumblerubypluginbot.service.erb')
     require => Vcsrepo['mumble-ruby-pluginbot'],
   }
 
