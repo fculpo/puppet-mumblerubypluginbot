@@ -29,7 +29,7 @@ class mumble_ruby_bot::config {
 
   file { '/etc/systemd/system/mumblerubypluginbot.service':
     ensure  => file,
-    content => template('mumble_ruby_bot/mumblerubypluginbot.service.erb')
+    content => template('mumble_ruby_bot/mumblerubypluginbot.service.erb'),
     require => Vcsrepo['mumble-ruby-pluginbot'],
   }
 
