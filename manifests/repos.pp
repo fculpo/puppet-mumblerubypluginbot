@@ -39,7 +39,7 @@ class mumble_ruby_bot::repos {
     provider => git,
     path     => "/home/$username/src/mumble-ruby-pluginbot",
     user     => $username,
-    source   => 'https://github.com/Natenom/mumble-ruby-pluginbot.git',
+    source   => 'https://github.com/dafoxia/mumble-ruby-pluginbot.git',
     revision => 'master',
     require  => File["/home/$username/src"],
   }
