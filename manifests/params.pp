@@ -1,7 +1,7 @@
 class mumble_ruby_bot::params {
 
 	$username                   = 'botmaster'
-  $ruby_version               = '2.1.1'
+  $ruby_version               = '2.2.1'
   $celt_version               = '0.7.0'
   $celt_rubygem_version       = '0.0.1'
   $mumble_rubygem_version     = '1.1.2'
