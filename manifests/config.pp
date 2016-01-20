@@ -33,6 +33,12 @@ class mumble_ruby_bot::config {
     require => Vcsrepo['mumble-ruby-pluginbot'],
   }
 
+  file { "/home/$username/src/mumble-ruby-pluginbot/scripts/puppetstart.sh":
+    ensure  => file,
+    content => template('mumble_ruby_bot/start.sh.erb'),
+    require => Vcsrepo['mumble-ruby-pluginbot'],
+  }
+
   file { [ "/home/$username/.rvm", '/root/.rvm' ]:
     ensure  => symlink,
     target  => '/usr/local/rvm',

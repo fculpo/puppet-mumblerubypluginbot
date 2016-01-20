@@ -6,7 +6,7 @@ After=network.target
 Type=oneshot
 RemainAfterExit=yes
 User=<%= @username %>
-ExecStart=/home/<%= @username -%>/src/mumble-ruby-pluginbot/scripts/start.sh debug &
+ExecStart=/home/<%= @username -%>/src/mumble-ruby-pluginbot/scripts/puppetstart.sh debug &
 
 [Install]
 WantedBy=multi-user.target
