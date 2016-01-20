@@ -36,6 +36,9 @@ class mumble_ruby_bot::config {
   file { "/home/$username/src/mumble-ruby-pluginbot/scripts/puppetstart.sh":
     ensure  => file,
     content => template('mumble_ruby_bot/start.sh.erb'),
+    mode    => '0755',
+    owner   => $username,
+    group   => $username,
     require => Vcsrepo['mumble-ruby-pluginbot'],
   }
 
